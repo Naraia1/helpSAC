@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Leva e Traz - Arval Premium</title>
+    <!-- Link para o CSS do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5; /* Cor de fundo clara e moderna */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #004d00; /* Verde escuro */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .menu-container {
+            text-align: left; /* Centraliza o conteúdo do container */
+            margin: 20px 40px; /* Margem superior e inferior */
+        }
+
+        .menu-link img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .container {
+            max-width: 900px; /* Largura máxima ajustada */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: 700;
+            color: #004d00;
+            display: block; /* Faz o label ocupar a linha inteira */
+            margin-bottom: 5px; /* Espaçamento abaixo do label */
+            text-align: left; /* Alinha o texto do label à esquerda */
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 0.2px solid #e7e7e7;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: block; /* Faz o campo ocupar a linha inteira */
+            text-align: left; /* Alinha o texto do input à esquerda */
+        }
+
+        .form-control.textarea {
+            height: 50Px; /* Ajusta a altura da área de texto */
+            resize: vertical; /* Permite redimensionar verticalmente */
+        }
+
+        .btn-primary {
+            background-color: #004d00; /* Verde escuro */
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #003300; /* Verde mais escuro */
+        }
+
+        .btn-secondary {
+            background-color: #e2e6ea; /* Cinza claro */
+            border: none;
+            color: #495057;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c6c8ca; /* Cinza escuro */
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espaçamento entre os botões */
+        }
+
+        /* Estilo para o botão pushable */
+        .pushable {
+            position: relative;
+            background-color: #004d00; /* Verde escuro */
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+            transition: transform 0.3s ease;
+            margin: 20px 0; /* Margem superior e inferior */
+            text-align: center;
+            display: inline-block;
+            text-decoration: none; /* Remove o sublinhado */
+        }
+
+        .pushable:active {
+            transform: translateY(4px);
+        }
+
+        .pushable .shadow {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .pushable .edge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            z-index: 2;
+            transition: border-color 0.3s ease;
+        }
+
+        .pushable .front {
+            position: relative;
+            z-index: 3;
+        }
+
+        .pushable:hover .shadow {
+            opacity: 0.3;
+        }
+
+        .pushable:hover .edge {
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pushable a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Solicite o Leva e Traz - Arval Premium</h1>
+    </header>
+    <div class="menu-container">
+        <a href="MENU.html" class="pushable">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front">MENU</span>
+        </a>
+    </div>
+    <div class="container">
+        <form action="mailto:atendimento.servico@portoseguro.com.br" method="post" enctype="text/plain">
+            <input type="hidden" name="subject" value="Arval Leva e Traz Premium | EMPRESA - PLACA - 07.063.698/0005-67">
+            <div class="form-group">
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="condutor">Condutor:</label>
+                <input type="text" id="condutor" name="condutor" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="data-retirada">Data da Retirada e Horário:</label>
+                <input type="datetime-local" id="data-retirada" name="data-retirada" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="responsavel">Responsável no Local:</label>
+                <input type="text" id="responsavel" name="responsavel" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="contato">Contato:</label>
+                <input type="text" id="contato" name="contato" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="end-origem">Endereço de Origem:</label>
+                <input type="text" id="end-origem" name="end-origem" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="ponto-ref-origem">Ponto de Referência - Origem:</label>
+                <input type="text" id="ponto-ref-origem" name="ponto-ref-origem" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="end-destino">Endereço de Destino:</label>
+                <input type="text" id="end-destino" name="end-destino" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="ponto-ref-destino">Ponto de Referência - Destino:</label>
+                <input type="text" id="ponto-ref-destino" name="ponto-ref-destino" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="observacao">Observação:</label>
+                <textarea id="observacao" name="observacao" class="form-control textarea"></textarea>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+                <button type="reset" class="btn btn-secondary">Limpar Formulário</button>
+            </div>
+        </form>
+    </div>
+    <!-- Link para o JavaScript do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

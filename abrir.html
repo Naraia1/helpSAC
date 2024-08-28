@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abertura de Sinistro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2; /* Cinza claro */
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+        .container {
+    background-color: #fff; /* Branco */
+    padding: 20px; /* Reduzido para menor espaço interno */
+    border-radius: 50px;
+    box-shadow: 06px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Largura máxima reduzida */
+    margin: 30px;
+    margin-right: 50px; /* Margem da direita reduzida */
+}
+
+
+        h1 {
+            text-align: center;
+            color: #333; /* Cinza escuro */
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #444; /* Cinza médio */
+        }
+        input, select, textarea {
+            width: calc(100% - 20px);
+            padding: 8px; /* Reduzido */
+            margin-bottom: 15px; /* Reduzido */
+            border: 1px solid #ccc; /* Cinza claro */
+            border-radius: 5px;
+            font-size: 14px; /* Reduzido */
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #004d00; /* Verde escuro */
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .conditional {
+            display: none;
+        }
+        /* Botão estilo */
+        .btn {
+            padding: 0.8rem 1.5rem; /* Reduzido */
+            font-weight: 700;
+            background: rgb(40, 155, 111);
+            color: rgb(253, 255, 254);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            border-bottom: 2px solid rgb(43, 226, 156);
+            border-right: 2px solid rgb(43, 226, 156);
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            transition-duration: 0.5s;
+            transition-property: border-top, border-left, border-bottom, border-right,
+                box-shadow;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            border-top: 2px solid rgb(29, 180, 79);
+            border-left: 2px solid rgb(72, 177, 107);
+            border-bottom: 2px solid rgb(72, 177, 107);
+            border-right: 2px solid rgb(72, 177, 107);
+            box-shadow: rgba(72, 177, 107) 5px 5px, rgba(72, 177, 107) 10px 10px,
+                rgba(72, 177, 107) 15px 15px;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px; /* Reduzido */
+        }
+
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff; /* Branco */
+            background-color: #004d00; /* Verde escuro */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .menu-btn:hover {
+            background-color: #003300; /* Verde escuro mais escuro */
+        }
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #fff; /* Branco */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .menu-content a {
+            display: block;
+            padding: 10px;
+            color: #278a4d; /* Cinza escuro */
+            text-decoration: none;
+        }
+        .menu-content a:hover {
+            background-color: #f1f1f1; /* Cinza muito claro */
+        }
+        .show-menu .menu-content {
+            display: block;
+        }
+    </style>
+    <style>
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        .data-table th {
+            background-color: #2C6E49;
+            color: white;
+            font-weight: bold;
+        }
+    
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    
+        .data-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    
+        .copy-text {
+            user-select: all; /* Permite selecionar e copiar o texto */
+            background-color: #f0f0f0; /* Destaca o texto para copiar */
+            padding: 2px 5px; /* Adiciona um pouco de espaço ao redor do texto */
+            border-radius: 4px; /* Adiciona bordas arredondadas */
+        }
+    </style>
+    
+    <script>
+        function showHideFields() {
+            const terceiroInvolvement = document.getElementById('terceiroInvolvement').value;
+            document.getElementById('terceiroFields').style.display = terceiroInvolvement === 'Sim' ? 'block' : 'none';
+            const boletim = document.getElementById('boletim').value;
+            document.getElementById('boletimFields').style.display = boletim === 'Sim' ? 'block' : 'none';
+            const reparosRealizados = document.getElementById('reparosRealizados').value;
+            document.getElementById('seguradoraFields').style.display = reparosRealizados === 'SEGURADORA TERCEIRO' ? 'block' : 'none';
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            let emailBody = 'Enviado em ' + new Date().toLocaleString('pt-BR') + '\n\n';
+
+            formData.forEach((value, key) => {
+                if (value.trim() !== '') {
+                    emailBody += `${key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}: ${value}\n`;
+                }
+            });
+
+            const placa = document.getElementById('placa').value;
+            const subject = `Comunicação de sinistro Premium - ${placa}`;
+            window.location.href = `mailto:concierge@br.arval.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        }
+
+        function clearForm() {
+            var form = document.querySelector('form');
+            form.reset();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            var menuBtn = document.querySelector('.menu-btn');
+            var menuContent = document.querySelector('.menu-content');
+            menuBtn.addEventListener('click', () => {
+                menuContent.classList.toggle('show-menu');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <section class="links-section">
+        <a href="MENU.HTML" class="btn">MENU</a>
+        <a href="levatraz.html" class="btn">LEVA E TRAZ</a>
+        <a href="ausencia.html" class="btn">AUSÊNCIA DE FORNECEDOR</a>
+    </section>
+
+    <div class="container">
+        <section>
+            <div class="container">
+                <h2>Dados para Registro na Abertura</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Passo 1:</strong></td>
+                            <td><span class="copy-text">*** ABERTURA DE SINISTRO - ***</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Passo 2:</strong></td>
+                            <td><span class="copy-text">*** ACIONADO LEVA E TRAZ - ***</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Passo 3:</strong></td>
+                            <td><span class="copy-text">*** ACIONADO GESTÃO DE FORNECEDORES | AUSÊNCIA ***</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ressarcimento:</strong></td>
+                            <td><span class="copy-text">37001</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seguradora Terceiro:</strong></td>
+                            <td><span class="copy-text">7007 - ATEND. SEGURADORA TERCEIRO</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    
+
+    <div class="container">
+        <h1>Abra um Sinistro</h1>
+        <form onsubmit="sendEmail(event)">
+            <!-- Dados do Veículo -->
+            <label for="placa">Placa do veículo</label>
+            <input type="text" id="placa" name="placa">
+
+            <label for="marca">Marca do veículo</label>
+            <input type="text" id="marca" name="marca">
+
+            <label for="modelo">Modelo do veículo</label>
+            <input type="text" id="modelo" name="modelo">
+
+            <label for="kmAtual">Km Atual</label>
+            <input type="number" id="kmAtual" name="kmAtual">
+
+            <label for="motivoSinistro">Motivo do sinistro</label>
+            <select id="motivoSinistro" name="motivoSinistro">
+                <option value="">Selecione</option>
+                <option value="Colisão">Colisão</option>
+                <option value="Roubo">Roubo</option>
+                <option value="Furto">Furto</option>
+                <option value="Capotamento">Capotamento</option>
+                <option value="Incêndio">Incêndio</option>
+                <option value="Alagamento">Alagamento</option>
+            </select>
+            <!-- Dados do Cliente e Condutor -->
+            <label for="nomeCliente">Nome do Cliente</label>
+            <input type="text" id="nomeCliente" name="nomeCliente">
+
+            <label for="nomeComunicante">Nome do Comunicante</label>
+            <input type="text" id="nomeComunicante" name="nomeComunicante">
+
+            <label for="nomeCondutor">Nome do Condutor</label>
+            <input type="text" id="nomeCondutor" name="nomeCondutor">
+
+            <label for="emailCondutor">E-mail do Condutor</label>
+            <input type="email" id="emailCondutor" name="emailCondutor">
+
+            <label for="telefoneCondutor">Telefone (com DDD) do Condutor</label>
+            <input type="tel" id="telefoneCondutor" name="telefoneCondutor">
+
+            <label for="nascimentoCondutor">Data de Nascimento do Condutor</label>
+            <input type="date" id="nascimentoCondutor" name="nascimentoCondutor">
+
+            <label for="cnhCondutor">Número da CNH do Condutor</label>
+            <input type="text" id="cnhCondutor" name="cnhCondutor">
+
+            <label for="validadeCnhCondutor">Validade da CNH do Condutor</label>
+            <input type="date" id="validadeCnhCondutor" name="validadeCnhCondutor">
+
+            <!-- Dados da Ocorrência -->
+            <label for="dataOcorrencia">Data da Ocorrência</label>
+            <input type="date" id="dataOcorrencia" name="dataOcorrencia">
+
+            <label for="horaOcorrencia">Hora da ocorrência</label>
+            <input type="time" id="horaOcorrencia" name="horaOcorrencia">
+
+            <label for="enderecoOcorrencia">Endereço da ocorrência</label>
+            <input type="text" id="enderecoOcorrencia" name="enderecoOcorrencia">
+
+            <label for="cidadeOcorrencia">Cidade da ocorrência</label>
+            <input type="text" id="cidadeOcorrencia" name="cidadeOcorrencia">
+
+            <label for="estadoOcorrencia">Estado da ocorrência</label>
+            <input type="text" id="estadoOcorrencia" name="estadoOcorrencia">
+
+            <!-- Perguntas Condicionais -->
+            <label for="terceiroInvolvement">Houve terceiros envolvidos?</label>
+            <select id="terceiroInvolvement" name="terceiro envolvido" onchange="showHideFields()">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <div id="terceiroFields" class="conditional">
+                <label for="quantosTerceiros">Quantos?</label>
+                <input type="number" id="quantosTerceiros" name="quantosTerceiros">
+
+                <label for="nomeTerceiro">Nome do terceiro</label>
+                <input type="text" id="nomeTerceiro" name="nomeTerceiro">
+
+                <label for="contatoTerceiro">Contato do terceiro</label>
+                <input type="text" id="contatoTerceiro" name="contatoTerceiro">
+
+                <label for="veiculoTerceiro">Veículo do terceiro</label>
+                <input type="text" id="veiculoTerceiro" name="veiculoTerceiro">
+
+                <label for="placaTerceiro">Placa do terceiro</label>
+                <input type="text" id="placaTerceiro" name="placaTerceiro">
+
+                <label for="danosTerceiro">Descreva os danos do terceiro</label>
+                <textarea id="danosTerceiro" name="danosTerceiro"></textarea>
+            </div>
+
+            <!-- Outros Campos -->
+            <label for="vitimas">Houve vítimas?</label>
+            <select id="vitimas" name="vitimas">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <label for="danosImoveis">Houve danos a bens imóveis (muro, poste, guard rail, etc.)?</label>
+            <select id="danosImoveis" name="danosImoveis">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <label for="reboque">Foi necessário acionar o reboque?</label>
+            <select id="reboque" name="reboque">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <label for="boletim">Foi elaborado o boletim de ocorrência?</label>
+            <select id="boletim" name="boletim" onchange="showHideFields()">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+            
+            <div id="boletimFields" class="conditional">
+                <label for="numeroBoletim">Número do Boletim</label>
+                <input type="text" id="numeroBoletim" name="numeroBoletim">
+            </div>
+            
+
+            <label for="detalhesAcidente">Descreva o acidente detalhadamente</label>
+            <textarea id="detalhesAcidente" name="detalhesAcidente" rows="4"></textarea>
+            
+            <label for="areasDanificadas">Nos informe quais foram as áreas danificadas do veículo</label>
+            <textarea id="areasDanificadas" name="areasDanificadas" rows="2"></textarea>
+
+            <label for="culpadoArval">O condutor Arval se declara culpado pelo acidente?</label>
+            <select id="culpadoArval" name="culpadoArval">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <label for="culpadoTerceiro">O terceiro se declara culpado pelo acidente?</label>
+            <select id="culpadoTerceiro" name="culpadoTerceiro">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+
+            <label for="localizacaoVeiculo">Informe a localização do veículo para indicarmos a oficina credenciada Arval mais próxima</label>
+            <input type="text" id="localizacaoVeiculo" name="localizacaoVeiculo">
+
+            <label for="informacoesAdicionais">Informações adicionais (Se necessário)</label>
+            <textarea id="informacoesAdicionais" name="informacoesAdicionais" rows="4"></textarea>
+
+            <label for="reparosRealizados">Quem realizará os reparos?</label>
+            <select id="reparosRealizados" name="reparosRealizados" onchange="showHideFields()">
+                <option value="">Selecione</option>
+                <option value="SEGURADORA ARVAL">SEGURADORA ARVAL</option>
+                <option value="SEGURADORA TERCEIRO">SEGURADORA TERCEIRO</option>
+            </select>
+
+            <div id="seguradoraFields" class="conditional">
+                <label for="nomeSeguradora">Nome da Seguradora</label>
+                <input type="text" id="nomeSeguradora" name="nomeSeguradora">
+
+                <label for="numeroSinistro">Número do Sinistro</label>
+                <input type="text" id="numeroSinistro" name="numeroSinistro">
+
+                <label for="contatoSeguradora">Contato da Seguradora</label>
+                <input type="text" id="contatoSeguradora" name="contatoSeguradora">
+            </div>
+            
+            <div class="btn-container">
+                <button type="submit">Enviar E-mail</button>
+                <button type="button" onclick="clearForm()">Limpar Formulário</button>
+             </div>
+        </form>
+    </div>
+</body>
+</html>
